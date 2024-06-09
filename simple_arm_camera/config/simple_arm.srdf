@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="simple_arm">
+  <group name="arm">
+    <chain base_link="link0" tip_link="tool_link"/>
+  </group>
+  <group_state name="vertical" group="arm">
+    <joint name="joint1" value="0"/>
+    <joint name="joint2" value="0"/>
+    <joint name="joint3" value="0"/>
+  </group_state>
+  <group_state name="bow" group="arm">
+    <joint name="joint1" value="0"/>
+    <joint name="joint2" value="1.57"/>
+    <joint name="joint3" value="1.57"/>
+  </group_state>
+</robot>
