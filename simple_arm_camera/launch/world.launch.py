@@ -115,6 +115,40 @@ def generate_launch_description():
     output='screen'
   )
 
+  apriltag_params = os.path.join(
+    get_package_share_directory('apriltag_ros'), 'cfg', 'tags_36h11.yaml'
+  )
+  apriltag = Node(
+    package='apriltag_ros',
+    executable='apriltag_node',
+    arguments=[
+      '-r', 'image_rect:=/image_raw',
+      '-r', 'camera_info:=/camera_info',
+      '--params-file', apriltag_params,
+    ]
+  )
+
+  visualizer = Node(
+    package='simple_arm_camera',
+    executable='apriltag_visualizer_node.py',
+  )
+
+  rviz_config_file = os.path.join(
+    get_package_share_directory('simple_arm_camera'), 'config', 'simple_arm_camera.rviz'
+  )
+  rviz_node = Node(
+    package='rviz2',
+    executable='rviz2',
+    name='rviz2',
+    output='log',
+    arguments=['-d', rviz_config_file],
+    parameters=[
+      robot_description,
+      robot_description_semantic,
+      ompl_planning_pipeline_config,
+    ]
+  )
+
   return LaunchDescription([
     SetParameter(name='use_sim_time', value=True),
     ign_gazebo,
@@ -124,4 +158,7 @@ def generate_launch_description():
     spawn_joint_state_controller,
     spawn_arm_controller,
     bridge,
+    apriltag,
+    visualizer,
+    rviz_node,
   ])
