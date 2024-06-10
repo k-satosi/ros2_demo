@@ -210,7 +210,7 @@
     <visual>
       <origin xyz="0 0 0.03" rpy="0 0 0"/>
       <geometry>
-        <box size="0.05 0.05 0.0.5"/>
+        <box size="0.05 0.05 0.1"/>
       </geometry>
     </visual>
     <material name="gray"/>
